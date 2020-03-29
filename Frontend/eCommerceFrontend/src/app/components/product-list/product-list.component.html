@@ -1,1 +1,23 @@
-<p>product-list works!</p>
+<table class = "table table-hover">
+    <thead class = "thead-dark">
+        <tr>
+           
+            <th> Name</th>
+            <th> Price</th>
+            <th> Unit in Stock</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let tempProduct of products">
+           
+            <td clasee = "align-middle">{{tempProduct.name}}</td>
+            <td clasee = "align-middle">{{tempProduct.unitPrice | currency:'USD'}}</td>
+            <td clasee = "align-middle">{{tempProduct.unitsInStock }}</td>
+            <td>
+                <img src = "{{tempProduct.imageUrl}}" height = "100" clasee = "align-middle"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
