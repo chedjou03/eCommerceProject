@@ -1,9 +1,11 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
+        <h1>Category: {{currentCategoryName}}</h1>
+        <hr>
         <div class = "content-fluid">
             <div class = "row">
                 <!-- loop over the collection of product-->
-                <div *ngFor = "let tempProduct of products" class = "col-md-4">
+                <div *ngFor = "let tempProduct of products" class = "col-md-3">
                     <div class = "product-box">
                         <img src = "{{tempProduct.imageUrl}}"  clasee = "img-responsive"/>
                         <h1>{{tempProduct.name}}</h1>
