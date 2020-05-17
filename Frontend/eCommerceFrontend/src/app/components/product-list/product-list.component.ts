@@ -13,7 +13,8 @@ export class ProductListComponent implements OnInit {
    products: Product[];
    currentCategoryId : number ;
    currentCategoryName : String;
-
+   searchMode : boolean; 
+   productName : String;
 
   
 
@@ -28,6 +29,17 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    if(this.searchMode){
+      this.productName = this.route.snapshot.paramMap.get('keyword');
+      this.handleSearchProductByName();
+    }else{
+      this.handleListProducts();
+    }
+    
+  }
+
+  handleListProducts(){
     //check if "id" parameter is available
     const hasCategoryId : boolean = this.route.snapshot.paramMap.has('id');
     if(hasCategoryId){
@@ -45,5 +57,14 @@ export class ProductListComponent implements OnInit {
       }
     )
   }
+
+  handleSearchProductByName() {
+    this.productListService.getProductListByProductName(this.productName).subscribe(
+      data =>{
+        this.products = data;
+      }
+    )
+  }
+
 
 }
