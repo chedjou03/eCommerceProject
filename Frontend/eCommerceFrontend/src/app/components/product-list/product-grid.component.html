@@ -13,6 +13,10 @@
                         <a class="btn btn-primary" href="#" role="button">Add to Card</a>
                     </div>
                 </div>
+                
+                <div *ngIf="noResult" class = "alert alert-danger" role = "alert">
+                    <h3>No product with name: <b>{{productName}}</b></h3>
+                </div>
             </div>
         </div>
     </div>

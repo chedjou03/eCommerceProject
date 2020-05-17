@@ -15,6 +15,7 @@ export class ProductListComponent implements OnInit {
    currentCategoryName : String;
    searchMode : boolean; 
    productName : String;
+   noResult : boolean;
 
   
 
@@ -32,7 +33,7 @@ export class ProductListComponent implements OnInit {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
     if(this.searchMode){
       this.productName = this.route.snapshot.paramMap.get('keyword');
-      this.handleSearchProductByName();
+      this.handleSearchProductByName(this.productName);
     }else{
       this.handleListProducts();
     }
@@ -58,12 +59,19 @@ export class ProductListComponent implements OnInit {
     )
   }
 
-  handleSearchProductByName() {
-    this.productListService.getProductListByProductName(this.productName).subscribe(
-      data =>{
-        this.products = data;
-      }
-    )
+  handleSearchProductByName(theKeyword : String) {
+      this.productListService.getProductListByProductName(theKeyword).subscribe(
+        data =>{
+          if(data.length == 0){
+            this.products = null;
+            this.noResult = true;
+          }else{
+            this.noResult = false;
+            this.products = data;
+          }
+          
+        }
+      )
   }
 
 
