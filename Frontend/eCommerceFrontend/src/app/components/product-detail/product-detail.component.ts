@@ -25,7 +25,6 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProduct(theProductId).subscribe(data => {
       this.product = data;
     })
-    console.log(">>>>>> the product:"+this.product);
   }
 
 }

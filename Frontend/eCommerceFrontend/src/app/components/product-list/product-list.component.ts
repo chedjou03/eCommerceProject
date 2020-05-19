@@ -11,12 +11,16 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductListComponent implements OnInit {
 
    products: Product[];
-   currentCategoryId : number ;
+   currentCategoryId : number = 1;
    currentCategoryName : String;
-   searchMode : boolean; 
+   searchMode : boolean = false; 
    productName : String;
    noResult : boolean;
-
+   thePageNumber : number = 1;
+   thePageSize : number = 6;
+   theTotalElement : number = 0;
+   theTotalPage : number = 0;
+   previousCategoryId: number = 1;
   
 
   constructor( private productListService : ProductService, private route : ActivatedRoute) { 
@@ -51,12 +55,24 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
       this.currentCategoryName = "Books";
     }
-    this.productListService.getProductList(this.currentCategoryId).subscribe(
-      data =>{
-        console.log("data"+data);
-        this.products = data;
-      }
-    )
+    //check if we have a different category than previous. if different set the page number to 1
+    if(this.previousCategoryId != this.currentCategoryId){
+      this.thePageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currentCategoryId;
+    console.log("currentCategoryId "+this.currentCategoryId+" thePageNumber"+this.thePageNumber);
+    this.productListService.getProductListPaginate(this.thePageNumber-1,this.thePageSize,this.currentCategoryId).subscribe( this.processResult())
+    
+  }
+  processResult() {
+    return data =>{
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize = data.page.size;
+      this.theTotalElement = data.page.totalElements;
+      this.theTotalPage = data.page.totalPages;
+    };
   }
 
   handleSearchProductByName(theKeyword : String) {
@@ -76,3 +92,4 @@ export class ProductListComponent implements OnInit {
 
 
 }
+

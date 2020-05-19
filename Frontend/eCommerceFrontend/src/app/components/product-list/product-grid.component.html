@@ -18,10 +18,30 @@
                     </div>
                 </div>
                 
+                <!-- If product is empty then display a message -->
                 <div *ngIf="noResult" class = "alert alert-danger" role = "alert">
                     <h3>No product with name: <b>{{productName}}</b></h3>
                 </div>
             </div>
+            
+            <!-- begin the pagination -->
+            <div class = "footer-pagination">
+                <div class = "col-md-6"></div>
+                <div class = "col-md-6">
+                    <div clasee = "raw">
+                        <div class = "col-md-9" style = "padding-left : 30%">
+                            <ngb-pagination [(page)]="thePageNumber"
+                                            [pageSize]="thePageSize"
+                                            [collectionSize]="theTotalElement"
+                                            (pageChange)="listProducts()"
+                                            [boundaryLinks]="true">
+
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
