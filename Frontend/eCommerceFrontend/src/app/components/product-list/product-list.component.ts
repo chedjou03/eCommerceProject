@@ -17,11 +17,11 @@ export class ProductListComponent implements OnInit {
    productName : String;
    noResult : boolean;
    thePageNumber : number = 1;
-   thePageSize : number = 6;
+   thePageSize : number = 5;
    theTotalElement : number = 0;
    theTotalPage : number = 0;
    previousCategoryId: number = 1;
-  
+    Summaries : number[] ;
 
   constructor( private productListService : ProductService, private route : ActivatedRoute) { 
 
@@ -31,8 +31,14 @@ export class ProductListComponent implements OnInit {
     this.route.paramMap.subscribe(()=>{
       this.listProducts();
     });  
+    this.Summaries = [ 5,10,15,20,50,100];
   }
 
+  updatePageSize(strPageSize : String){
+    console.log("page size change to: "+strPageSize);
+    this.thePageSize = +strPageSize;
+    this.listProducts();
+  }
   listProducts() {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
     if(this.searchMode){
@@ -61,7 +67,7 @@ export class ProductListComponent implements OnInit {
     }
 
     this.previousCategoryId = this.currentCategoryId;
-    console.log("currentCategoryId "+this.currentCategoryId+" thePageNumber"+this.thePageNumber);
+    console.log("currentCategoryId "+this.currentCategoryId+" thePageNumber "+this.thePageNumber);
     this.productListService.getProductListPaginate(this.thePageNumber-1,this.thePageSize,this.currentCategoryId).subscribe( this.processResult())
     
   }

@@ -26,10 +26,9 @@
             
             <!-- begin the pagination -->
             <div class = "footer-pagination">
-                <div class = "col-md-6"></div>
-                <div class = "col-md-6">
-                    <div clasee = "raw">
-                        <div class = "col-md-9" style = "padding-left : 30%">
+                <div class = "row">
+                    <div class="col-sm-6" >
+                        <div  style="padding-left: 40%">
                             <ngb-pagination [(page)]="thePageNumber"
                                             [pageSize]="thePageSize"
                                             [collectionSize]="theTotalElement"
@@ -39,9 +38,16 @@
                             </ngb-pagination>
                         </div>
                     </div>
+                    <div class="col-sm-6" >
+                        <div  style = "text-align: left;">
+                            <label class = "mr-2"> {{currentCategoryName}} by page &nbsp;&nbsp;</label>
+                            <select #myPageSizeInput (change) = "updatePageSize(myPageSizeInput.value)">
+                                <option *ngFor = "let tempSummary of Summaries"> {{tempSummary}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
