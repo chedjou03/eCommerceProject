@@ -73,29 +73,23 @@ export class ProductListComponent implements OnInit {
   }
   processResult() {
     return data =>{
-      this.products = data._embedded.products;
-      this.thePageNumber = data.page.number + 1;
-      this.thePageSize = data.page.size;
-      this.theTotalElement = data.page.totalElements;
-      this.theTotalPage = data.page.totalPages;
+      if(data._embedded.products.length == 0){
+        this.products = null;
+        this.noResult = true;
+      }else{
+        this.noResult = false;
+        this.products = data._embedded.products;
+        this.thePageNumber = data.page.number + 1;
+        this.thePageSize = data.page.size;
+        this.theTotalElement = data.page.totalElements;
+        this.theTotalPage = data.page.totalPages;
+      }
     };
   }
 
   handleSearchProductByName(theKeyword : String) {
-      this.productListService.getProductListByProductName(theKeyword).subscribe(
-        data =>{
-          if(data.length == 0){
-            this.products = null;
-            this.noResult = true;
-          }else{
-            this.noResult = false;
-            this.products = data;
-          }
-          
-        }
-      )
+      this.productListService.getProductListByProductNamePaginate(theKeyword, this.thePageSize, this.thePageNumber-1).subscribe(this.processResult())
   }
-
 
 }
 

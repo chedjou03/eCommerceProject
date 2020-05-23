@@ -16,8 +16,8 @@ export class ProductService {
 
   private baseUrl = "http://localhost:8080/api/products";
   private productCategoryUrl = "http://localhost:8080/api/product_category";
-  private searchProductByNameUrl = "http://localhost:8080/api/products/search/findByNameContaining?name";
-  private getProductByIdUrl = "http://localhost:8080/api/products";
+  private searchProductByNameUrl = this.baseUrl+"/search/findByNameContaining?name";
+  private getProductByIdUrl = this.baseUrl;
 
   getProductList(categoryId : number): Observable<Product[]>{
     //need to build to URL based on that categoryId
@@ -40,6 +40,11 @@ export class ProductService {
   getProductListByProductName(productName : String) : Observable<Product[]>{
     const searchProductByName = `${this.searchProductByNameUrl}=${productName}`;
     return this.httpClient.get<GetResponseProduct>(searchProductByName).pipe(map(response => response._embedded.products));
+  }
+
+  getProductListByProductNamePaginate(productName : String, thePageSize : number, thePage : number) : Observable<GetResponseProduct>{
+    const searchProductByName = `${this.searchProductByNameUrl}=${productName}&page=${thePage}&size=${thePageSize}`;
+    return this.httpClient.get<GetResponseProduct>(searchProductByName);
   }
 
   getProduct(productId : number) : Observable<Product>{
