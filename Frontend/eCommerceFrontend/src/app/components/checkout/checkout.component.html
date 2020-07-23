@@ -43,23 +43,19 @@
                                 <input formControlName = "city" type = "text"> 
                             </div>
                         </div>
-                        <div class = "col-md-3"> <label>State</label></div>
-                        <div class = "col-md-9">
-                            <div class = "input-space">
-                                <select formControlName = "state" > 
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class = "col-md-3"> <label>Country</label></div>
                         <div class = "col-md-9">
                             <div class = "input-space">
-                                <select formControlName = "country" > 
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
+                                <select formControlName = "country" (change)="countryChange('shippingAddress')"> 
+                                    <option *ngFor = " let country of countries" value="{{country.code}}">{{country.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class = "col-md-3"> <label>State</label></div>
+                        <div class = "col-md-9">
+                            <div class = "input-space">
+                                <select formControlName = "state"> 
+                                    <option *ngFor = " let state of shipingStates">{{state.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -92,26 +88,22 @@
                                 <input formControlName = "city" type = "text"> 
                             </div>
                         </div>
+                        <div class = "col-md-3"> <label>Country</label></div>
+                        <div class = "col-md-9">
+                            <div class = "input-space"> 
+                                <select formControlName = "country" (change)="countryChange('billingAddress')"> 
+                                    <option *ngFor = " let country of countries" value="{{country.code}}">{{country.name}}</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class = "col-md-3"> <label>State</label></div>
                         <div class = "col-md-9">
                             <div class = "input-space">
                                 <select formControlName = "state" > 
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
+                                    <option *ngFor = " let state of billingStates">{{state.name}}</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class = "col-md-3"> <label>Country</label></div>
-                        <div class = "col-md-9">
-                            <div class = "input-space"> 
-                                <select formControlName = "country" > 
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
-                                    <option>TO DO</option>
-                                </select>
-                            </div>
-                        </div>
+                        </div> 
                         <div class = "col-md-3"> <label>Zip code</label></div>
                         <div class = "col-md-9">
                             <div class = "input-space">
